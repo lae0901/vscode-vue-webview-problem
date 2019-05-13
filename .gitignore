@@ -39,6 +39,9 @@ jspm_packages/
 # webpack dist
 dist/
 
+# vscode extension out folder
+out/
+
 # TypeScript v1 declaration files
 typings/
 
