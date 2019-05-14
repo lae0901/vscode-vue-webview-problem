@@ -3,11 +3,11 @@ import * as vscode from 'vscode';
 
 let global_webViewPanel: vscode.WebviewPanel;
 let global_disposables: vscode.Disposable[] = [];
-const global_viewType = 'wrkobjWebview';
+const global_viewType = 'vueWebview';
 
 export function activate(context: vscode.ExtensionContext)
 {
-	const disposable = vscode.commands.registerCommand('rock.webview', () =>
+	const disposable = vscode.commands.registerCommand('vue.webview', () =>
 	{
 		global_createPanel(context.extensionPath);
 	});
@@ -53,9 +53,9 @@ function global_getWebviewContent(extPath: string)
 		<head>
 			<meta charset="UTF-8">
 			<meta http-equiv="Content-Security-Policy" 
-			content="default-src 'none'; connect-src http://173.54.20.170:10080/;  img-src vscode-resource: https:; script-src 'nonce-${nonce}';">
+			content="default-src 'none'; img-src vscode-resource: https:; script-src 'nonce-${nonce}';">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title>wrkobj webview</title>
+			<title>vue webview</title>
 		</head>
 		<body>
 
@@ -94,12 +94,11 @@ function global_dispose()
 	}
 }
 
-function global_createPanel(extensionPath: string) {
-	console.log('in createPanel. version 9b.');
-
+function global_createPanel(extensionPath: string)
+{
 	// create a new panel.
 	const panel = vscode.window.createWebviewPanel(
-		global_viewType, 'wrkobj webview',
+		global_viewType, 'vue webview',
 		vscode.ViewColumn.One,
 		{
 			// Enable javascript in the webview
@@ -113,24 +112,11 @@ function global_createPanel(extensionPath: string) {
 	global_webViewPanel = panel;
 
 	// Set the webview's initial html content
-	const catName = 'Testing Cat';
 	const htmlText = global_getWebviewContent(extensionPath);
-	global_webViewPanel.title = catName;
+	global_webViewPanel.title = 'Testing vue in webview';
 	global_webViewPanel.webview.html = htmlText;
 
 	// Listen for when the panel is disposed
 	// This happens when the user closes the panel or when the panel is closed programatically
 	global_webViewPanel.onDidDispose(() => global_dispose(), null, global_disposables);
-
-	// extension receives messages that the webview has sent using postMessage
-	global_webViewPanel.webview.onDidReceiveMessage(
-		message => {
-			switch (message.command) {
-				case 'alert':
-					vscode.window.showErrorMessage(message.text);
-					return;
-			}
-		},
-		null, global_disposables
-	);
 }

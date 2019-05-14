@@ -1,6 +1,6 @@
 {
-	"name": "webview-wrkobj",
-	"description": "wrkobj within webview",
+	"name": "vuewebview",
+	"description": "use vue within webview",
 	"version": "0.0.1",
 	"publisher": "vscode-samples",
 	"engines": {
@@ -10,15 +10,15 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:rock.webview"
+		"onCommand:vue.webview"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "rock.webview",
-				"title": "wrkobj within webview",
-				"category": "wrkobj webview"
+				"command": "vue.webview",
+				"title": "use vue within webview",
+				"category": "vue webview"
 			}
 		]
 	},
