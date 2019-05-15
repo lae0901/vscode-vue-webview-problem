@@ -15,14 +15,10 @@ var app = new Vue({
 	},
 	methods:
 	{
-		redirect_click()
+		ok_click( )
 		{
-			console.log('hello');
-		},
-
-		getObjectList_click( )
-		{
-			console.log('getObjectLIst') ;
+			this.message = 'ok' ;
+			console.log('ok_click') ;
 		}
 	}
 })

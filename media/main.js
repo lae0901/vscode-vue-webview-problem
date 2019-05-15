@@ -1,15 +1,14 @@
 (function ()
 {
 	const but1_elem = document.getElementById('but1');
-	but1_elem.addEventListener('click', ok_click);
+	but1_elem.addEventListener('click', but1_click);
 }());
 
 // click a button.  show some text in the webview.
-async function ok_click()
+async function but1_click()
 {
-	const elem = document.getElementById('panel1');
+	const elem = document.getElementById('but1');
     let text = elem.innerText;
-    text += 'more text' ;
+    text = Number(text) + 1 ;
     elem.innerText = text ;
-	text = elem.innerText;
 }

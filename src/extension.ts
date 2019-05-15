@@ -9,12 +9,12 @@ export function activate(context: vscode.ExtensionContext)
 {
 	const disposable = vscode.commands.registerCommand('vue.webview', () =>
 	{
-		global_createPanel(context.extensionPath);
+		createPanel(context.extensionPath);
 	});
 	context.subscriptions.push( disposable ) ;
 }
 
-function global_getNonce()
+function getNonce()
 {
 	let text = '';
 	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -39,14 +39,14 @@ function scriptUri_builder(
 	return scriptUri ;
 }
 
-function global_getWebviewContent(extPath: string)
+function getWebviewContent(extPath: string)
 {
 	const main_uri = scriptUri_builder( extPath, 'media', 'main.js') ;
 	const app_uri = scriptUri_builder( extPath, 'media', 'app.js') ;
 	const vue_uri = scriptUri_builder( extPath, 'media', 'vue.min.js') ;
 
 	// Use a nonce to whitelist which scripts can be run
-	const nonce = global_getNonce();
+	const nonce = getNonce();
 
 	return `<!DOCTYPE html>
 		<html lang="en">
@@ -59,13 +59,14 @@ function global_getWebviewContent(extPath: string)
 		</head>
 		<body>
 
-			<button id="but1">button</button>
+			<button id="but1">0</button>
 			<div id="panel1"></div>
-			<h1 id="lines-of-code-counter">0</h1>
+			<br>
+			<span>vue should render a button and message below.</span>
 
 			<div id="app">
 			{{message}}
-			<button @click="getObjectList_click()">get objects</button>
+			<button @click="ok_click()">ok</button>
 			</div>
 
 			<script nonce="${nonce}" src="${vue_uri}"></script>
@@ -80,7 +81,7 @@ function global_constructor(extensionPath: string)
 {
 }
 
-function global_dispose()
+function dispose()
 {
 	// Clean up our resources
 	global_webViewPanel.dispose();
@@ -94,11 +95,10 @@ function global_dispose()
 	}
 }
 
-function global_createPanel(extensionPath: string)
+function createPanel(extensionPath: string)
 {
 	// create a new panel.
-	const panel = vscode.window.createWebviewPanel(
-		global_viewType, 'vue webview',
+	const panel = vscode.window.createWebviewPanel( global_viewType, 'vue webview',
 		vscode.ViewColumn.One,
 		{
 			// Enable javascript in the webview
@@ -112,11 +112,11 @@ function global_createPanel(extensionPath: string)
 	global_webViewPanel = panel;
 
 	// Set the webview's initial html content
-	const htmlText = global_getWebviewContent(extensionPath);
+	const htmlText = getWebviewContent(extensionPath);
 	global_webViewPanel.title = 'Testing vue in webview';
 	global_webViewPanel.webview.html = htmlText;
 
 	// Listen for when the panel is disposed
 	// This happens when the user closes the panel or when the panel is closed programatically
-	global_webViewPanel.onDidDispose(() => global_dispose(), null, global_disposables);
+	global_webViewPanel.onDidDispose(() => dispose(), null, global_disposables);
 }

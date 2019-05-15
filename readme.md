@@ -1,14 +1,23 @@
-# web repo
+# demo app. vscode-vue-webview-problem
 
-Central repo of projects used to train on javascript and other software technologies.
+How to use vue.js within a vscode extension webview?
 
-* couristan - couristan projects. For now, just the webpack based projects.
-* extensions - vscode extension projects
-* projects - kind of like tester folder. Only more permanent.
-* tester - tester/training projects
-* vue - vue training projects
+This extension app illustrates the problem. Why does vue.js not render in the webview iframe? Note that vue.js runs without error.  The mounted function runs the console.log statement. Only nothing is rendered in the webview page.
 
-## work log
+**To run this extension:**
+* download to your PC
+* open the folder in vscode
+* `npm install`
+* `npm run compile`
+* f5 to start debugging the extension
+* in the debug instance, CTRL+SHIFT+P for the command palette
+* find and run command `vue webview`
+* the button is in the webview just to show that the extension works.  But why does vue.js not render its output?
+* in the debug instance of vscode run command `developer: open webview developer tools` to see if there are any javascript errors running the webview.
 
-tester/webpack-excel
-* enable exceljs to be used from webpack build browser client
+**how the extension works**
+
+Within `extension.ts` is a method `getWebviewContent` that builds the HTML of the webview.
+
+The .js files are included in the HTML of the webview using the `<script>` tag. The `nonce= attribute` is needed to include the script into the webview.
+
