@@ -1,8 +1,8 @@
 # demo app. vscode-vue-webview-problem
 
-How to use vue.js within a vscode extension webview?
+This app was coded to illustrate a problem I am having using vue.js in a vscode extension webview. I want to use vue.js in the webview page.  It looks like vue.js loads correctly. The vue.js mounted method runs. But vue.js does not do its thing and render HTML on the web page.
 
-This extension app illustrates the problem. Why does vue.js not render in the webview iframe? Note that vue.js runs without error.  The mounted function runs the console.log statement. Only nothing is rendered in the webview page.
+How to use vue.js within a vscode extension webview? Is the problem because the webview runs within an iframe?
 
 **To run this extension:**
 * download to your PC
